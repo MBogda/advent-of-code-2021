@@ -11,9 +11,11 @@ fun main() {
     println(reader.readNumber("[[[[1,3],[5,3]],[[1,3],[8,7]]],[[[4,9],[6,9]],[[8,2],[7,3]]]]"))
 }
 
-class SnailfishNumber(var left: SnailfishNumber?, var right: SnailfishNumber?, var value: Int?) {
-    // todo: check info about data classes
+data class SnailfishNumber(var left: SnailfishNumber?, var right: SnailfishNumber?, var value: Int?) {
     constructor(left: SnailfishNumber, right: SnailfishNumber) : this(left, right, null)
+    constructor(left: Int, right: Int) : this(SnailfishNumber(left), SnailfishNumber(right))
+    constructor(left: Int, right: SnailfishNumber) : this(SnailfishNumber(left), right)
+    constructor(left: SnailfishNumber, right: Int) : this(left, SnailfishNumber(right))
     constructor(value: Int) : this(null, null, value)
     override fun toString(): String {
         return if (value != null) {
