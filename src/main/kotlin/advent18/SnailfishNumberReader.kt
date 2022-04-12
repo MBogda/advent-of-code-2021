@@ -1,11 +1,11 @@
 package advent18
 
 class SnailfishNumberReader {
-    fun readNumber(number: String) : SnailfishNumber {
+    fun readNumber(number: String): SnailfishNumber {
         return readNumber(number.iterator())
     }
 
-    private fun readNumber(numberIterator: CharIterator) : SnailfishNumber {
+    private fun readNumber(numberIterator: CharIterator): SnailfishNumber {
         var left = SnailfishNumber(0)
         var right = SnailfishNumber(0)
         while (numberIterator.hasNext()) {
