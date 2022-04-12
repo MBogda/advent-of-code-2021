@@ -23,7 +23,11 @@ internal class SnailfishNumberExploderTest {
         for ((strBeforeExplode, strAfterExplode) in numbersToExplode) {
             val beforeExplode = reader.readNumber(strBeforeExplode)
             SnailfishNumberExploder().explode(beforeExplode)
-            assertEquals(strAfterExplode, beforeExplode.toString(), "Exploded numbers are different")
+            assertEquals(
+                expected = strAfterExplode,
+                actual = beforeExplode.toString(),
+                message = "Exploded numbers are different"
+            )
         }
     }
 }

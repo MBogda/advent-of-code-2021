@@ -60,8 +60,9 @@ internal class SnailfishNumberReaderTest {
         // todo? add assertj
         for ((numberString, snailfishNumber) in stringsToNumbers) {
             assertEquals(
-                snailfishNumber, reader.readNumber(numberString),
-                "Internal representations are different"
+                expected = snailfishNumber,
+                actual = reader.readNumber(numberString),
+                message = "Internal representations are different"
             )
         }
     }
@@ -70,8 +71,9 @@ internal class SnailfishNumberReaderTest {
     fun readNumber_StringRepresentation() {
         for ((numberString, _) in stringsToNumbers) {
             assertEquals(
-                numberString, reader.readNumber(numberString).toString(),
-                "String representations are different"
+                expected = numberString,
+                actual = reader.readNumber(numberString).toString(),
+                message = "String representations are different"
             )
         }
     }
