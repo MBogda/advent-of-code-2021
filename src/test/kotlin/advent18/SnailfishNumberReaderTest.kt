@@ -52,6 +52,8 @@ internal class SnailfishNumberReaderTest {
                 ),
             ),
         ),
+        // not for the task, but for usefulness: parse multi-digit numbers
+        "[10,10000]" to SnailfishNumber(10, 10000),
     )
 
     @Test

@@ -20,12 +20,12 @@ internal class SnailfishNumberExploderTest {
 
     @Test
     fun explode() {
-        for ((strBeforeExplode, strAfterExplode) in numbersToExplode) {
-            val beforeExplode = reader.readNumber(strBeforeExplode)
-            SnailfishNumberExploder().explode(beforeExplode)
+        for ((beforeExplode, afterExplode) in numbersToExplode) {
+            val snailfishNumber = reader.readNumber(beforeExplode)
+            SnailfishNumberExploder().explode(snailfishNumber)
             assertEquals(
-                expected = strAfterExplode,
-                actual = beforeExplode.toString(),
+                expected = afterExplode,
+                actual = snailfishNumber.toString(),
                 message = "Exploded numbers are different"
             )
         }
