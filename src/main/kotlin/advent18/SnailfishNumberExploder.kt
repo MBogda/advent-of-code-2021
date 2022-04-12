@@ -76,7 +76,7 @@ class SnailfishNumberExploder {
     }
 
     private fun updateRightmost(number: SnailfishNumber, updated: Int) {
-        number.left?.let { updateLeftmost(it, updated) }
+        number.right?.let { updateRightmost(it, updated) }
             ?: run {
                 number.value = number.value?.let { it + updated }
             }
