@@ -9,14 +9,14 @@ class SnailfishNumberReader(number: String) {
         numberIterator = number.iterator()
     }
 
-    fun readNumber(): SnailfishNumber {
+    fun read(): SnailfishNumber {
         var left = SnailfishNumber(0)
         var right = SnailfishNumber(0)
         readNextChar()
         while (currentChar != '\n') {
             when {
                 currentChar == '[' -> {
-                    left = readNumber()
+                    left = this.read()
                 }
                 currentChar.isDigit() -> {
                     val builder = StringBuilder().append(currentChar)
@@ -26,7 +26,7 @@ class SnailfishNumberReader(number: String) {
                     return SnailfishNumber(builder.toString().toInt())
                 }
                 currentChar == ',' -> {
-                    right = readNumber()
+                    right = this.read()
                 }
                 currentChar == ']' -> {
                     readNextChar()

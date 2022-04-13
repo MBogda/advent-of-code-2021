@@ -17,7 +17,7 @@ internal class SnailfishNumberSplitterTest {
     @Test
     fun split() {
         for ((beforeSplit, afterSplit) in numbersToSplit) {
-            val snailfishNumber = SnailfishNumberReader(beforeSplit).readNumber()
+            val snailfishNumber = SnailfishNumberReader(beforeSplit).read()
             splitter.split(snailfishNumber)
             assertEquals(
                 expected = afterSplit,

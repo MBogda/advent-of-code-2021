@@ -19,7 +19,7 @@ internal class SnailfishNumberExploderTest {
     @Test
     fun explode() {
         for ((beforeExplode, afterExplode) in numbersToExplode) {
-            val snailfishNumber = SnailfishNumberReader(beforeExplode).readNumber()
+            val snailfishNumber = SnailfishNumberReader(beforeExplode).read()
             SnailfishNumberExploder().explode(snailfishNumber)
             assertEquals(
                 expected = afterExplode,

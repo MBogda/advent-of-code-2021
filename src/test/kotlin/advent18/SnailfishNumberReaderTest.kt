@@ -61,7 +61,7 @@ internal class SnailfishNumberReaderTest {
         for ((numberString, snailfishNumber) in stringsToNumbers) {
             assertEquals(
                 expected = snailfishNumber,
-                actual = SnailfishNumberReader(numberString).readNumber(),
+                actual = SnailfishNumberReader(numberString).read(),
                 message = "Internal representations are different"
             )
         }
@@ -72,7 +72,7 @@ internal class SnailfishNumberReaderTest {
         for ((numberString, _) in stringsToNumbers) {
             assertEquals(
                 expected = numberString,
-                actual = SnailfishNumberReader(numberString).readNumber().toString(),
+                actual = SnailfishNumberReader(numberString).read().toString(),
                 message = "String representations are different"
             )
         }
