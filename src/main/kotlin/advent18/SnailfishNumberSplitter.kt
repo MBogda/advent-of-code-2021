@@ -6,7 +6,7 @@ class SnailfishNumberSplitter {
             if (value > 9) {
                 number.left = SnailfishNumber(value / 2)
                 number.right = SnailfishNumber((value + 1) / 2)
-                number.value = 0
+                number.value = null
                 return true
             }
             return false

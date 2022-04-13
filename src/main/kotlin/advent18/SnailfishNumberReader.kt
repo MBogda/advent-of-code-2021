@@ -12,23 +12,37 @@ class SnailfishNumberReader(number: String) {
     fun readNumber(): SnailfishNumber {
         var left = SnailfishNumber(0)
         var right = SnailfishNumber(0)
-        while (numberIterator.hasNext()) {
-            currentChar = numberIterator.nextChar()
+        readNextChar()
+        while (currentChar != '\n') {
             when {
                 currentChar == '[' -> {
                     left = readNumber()
                 }
                 currentChar.isDigit() -> {
-                    return SnailfishNumber(currentChar.digitToInt())
+                    val builder = StringBuilder().append(currentChar)
+                    while (readNextChar() && currentChar.isDigit()) {
+                        builder.append(currentChar)
+                    }
+                    return SnailfishNumber(builder.toString().toInt())
                 }
                 currentChar == ',' -> {
                     right = readNumber()
                 }
                 currentChar == ']' -> {
+                    readNextChar()
                     return SnailfishNumber(left, right)
                 }
             }
         }
         return SnailfishNumber(0)
+    }
+
+    private fun readNextChar(): Boolean {
+        if (numberIterator.hasNext()) {
+            currentChar = numberIterator.nextChar()
+            return true
+        }
+        currentChar = '\n'
+        return false
     }
 }
