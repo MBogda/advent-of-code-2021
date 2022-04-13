@@ -1,7 +1,10 @@
 package advent18
 
 fun main() {
-
+    val inputText = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
+        ?: throw AssertionError("Can't read input file.")
+    val magnitude = findMagnitude(inputText)
+    println(magnitude)  // 3793
 }
 
 fun findSum(inputText: List<String>): SnailfishNumber {
