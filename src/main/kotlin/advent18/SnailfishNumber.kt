@@ -14,4 +14,8 @@ data class SnailfishNumber(var left: SnailfishNumber?, var right: SnailfishNumbe
             "[$left,$right]"
         }
     }
+
+    operator fun plus(number: SnailfishNumber): SnailfishNumber {
+        return SnailfishNumberAdder.add(this, number)
+    }
 }
