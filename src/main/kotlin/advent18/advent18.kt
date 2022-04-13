@@ -4,10 +4,20 @@ fun main() {
 
 }
 
-fun findSum(inputFile: String): SnailfishNumber {
-    return SnailfishNumber(0)
+fun findSum(inputText: List<String>): SnailfishNumber {
+    var resultNumber: SnailfishNumber? = null
+    for (line in inputText) {
+        val addedNumber = SnailfishNumberReader(line).read()
+        if (resultNumber == null) {
+            resultNumber = addedNumber
+        } else {
+            resultNumber += addedNumber
+        }
+    }
+    return resultNumber ?: SnailfishNumber(0)
 }
 
-fun findMagnitude(inputFile: String): Int {
-    return 0
+fun findMagnitude(inputFile: List<String>): Int {
+    val resultNumber = findSum(inputFile)
+    return SnailfishNumberMagnitudeFinder.findMagnitude(resultNumber)
 }

@@ -7,9 +7,11 @@ internal class SnailfishNumberReaderTest {
 
     private val stringsToNumbers = mapOf(
         "[1,2]" to SnailfishNumber(1, 2),
+        "[1,2]\n" to SnailfishNumber(1, 2),
         "[[1,2],3]" to SnailfishNumber(SnailfishNumber(1, 2), 3),
         "[9,[8,7]]" to SnailfishNumber(9, SnailfishNumber(8, 7)),
         "[[1,9],[8,5]]" to SnailfishNumber(SnailfishNumber(1, 9), SnailfishNumber(8, 5)),
+        "[[1,9],[8,5]]\n" to SnailfishNumber(SnailfishNumber(1, 9), SnailfishNumber(8, 5)),
         "[[[[1,2],[3,4]],[[5,6],[7,8]]],9]" to SnailfishNumber(
             SnailfishNumber(
                 SnailfishNumber(SnailfishNumber(1, 2), SnailfishNumber(3, 4)),
@@ -71,7 +73,7 @@ internal class SnailfishNumberReaderTest {
     fun readNumber_StringRepresentation() {
         for ((numberString, _) in stringsToNumbers) {
             assertEquals(
-                expected = numberString,
+                expected = numberString.trim(),
                 actual = SnailfishNumberReader(numberString).read().toString(),
                 message = "String representations are different"
             )

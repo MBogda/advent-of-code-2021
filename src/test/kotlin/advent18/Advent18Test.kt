@@ -2,6 +2,7 @@ package advent18
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.fail
 
 class Advent18Test {
 
@@ -20,7 +21,9 @@ class Advent18Test {
     @Test
     fun findSum() {
         for ((inputFile, sum) in inputFileAndSum) {
-            val actualSum = findSum(inputFile)
+            val text = this.javaClass.getResourceAsStream(inputFile)?.bufferedReader()?.readLines()
+                ?: fail("Can't read input file.")
+            val actualSum = findSum(text)
             assertEquals(expected = sum, actual = actualSum.toString(), message = "Sums are different.")
         }
     }
@@ -28,7 +31,9 @@ class Advent18Test {
     @Test
     fun findMagnitude() {
         for ((inputFile, magnitude) in inputFileAndMagnitude) {
-            val actualMagnitude = findMagnitude(inputFile)
+            val text = this.javaClass.getResourceAsStream(inputFile)?.bufferedReader()?.readLines()
+                ?: fail("Can't read input file.")
+            val actualMagnitude = findMagnitude(text)
             assertEquals(expected = magnitude, actual = actualMagnitude, message = "Magnitudes are different.")
         }
     }
