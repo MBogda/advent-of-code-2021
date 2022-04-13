@@ -1,10 +1,15 @@
 package advent18
 
+import kotlin.math.max
+
 fun main() {
     val inputText = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
         ?: throw AssertionError("Can't read input file.")
     val magnitude = findMagnitude(inputText)
-    println(magnitude)  // 3793
+    println("Part one: $magnitude")  // 3793
+
+    val largestMagnitude = findLargestMagnitudePair(inputText)
+    println("Part two: $largestMagnitude")  // 4695
 }
 
 fun findSum(inputText: List<String>): SnailfishNumber {
@@ -20,11 +25,20 @@ fun findSum(inputText: List<String>): SnailfishNumber {
     return resultNumber ?: SnailfishNumber(0)
 }
 
-fun findMagnitude(inputFile: List<String>): Int {
-    val resultNumber = findSum(inputFile)
+fun findMagnitude(inputStrings: List<String>): Int {
+    val resultNumber = findSum(inputStrings)
     return SnailfishNumberMagnitudeFinder.findMagnitude(resultNumber)
 }
 
-fun findLargestMagnitudePair(inputFile: List<String>): Int {
-    return 0
+fun findLargestMagnitudePair(inputStrings: List<String>): Int {
+    var largestMagnitude = 0
+    for (line1 in inputStrings) {
+        for (line2 in inputStrings) {
+            val number1 = SnailfishNumberReader(line1).read()
+            val number2 = SnailfishNumberReader(line2).read()
+            val magnitude = SnailfishNumberMagnitudeFinder.findMagnitude(number1 + number2)
+            largestMagnitude = max(largestMagnitude, magnitude)
+        }
+    }
+    return largestMagnitude
 }
