@@ -24,3 +24,7 @@ fun findMagnitude(inputFile: List<String>): Int {
     val resultNumber = findSum(inputFile)
     return SnailfishNumberMagnitudeFinder.findMagnitude(resultNumber)
 }
+
+fun findLargestMagnitudePair(inputFile: List<String>): Int {
+    return 0
+}

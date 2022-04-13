@@ -18,6 +18,10 @@ class Advent18Test {
         "input5" to 4140,
     )
 
+    private val inputFileAndLargestMagnitude = mapOf(
+        "input5" to 3993,
+    )
+
     @Test
     fun findSum() {
         for ((inputFile, sum) in inputFileAndSum) {
@@ -35,6 +39,18 @@ class Advent18Test {
                 ?: fail("Can't read input file.")
             val actualMagnitude = findMagnitude(text)
             assertEquals(expected = magnitude, actual = actualMagnitude, message = "Magnitudes are different.")
+        }
+    }
+
+    @Test
+    fun findLargestMagnitudePair() {
+        for ((inputFile, largestMagnitude) in inputFileAndLargestMagnitude) {
+            val text = this.javaClass.getResourceAsStream(inputFile)?.bufferedReader()?.readLines()
+                ?: fail("Can't read input file.")
+            val actualMagnitude = findLargestMagnitudePair(text)
+            assertEquals(
+                expected = largestMagnitude, actual = actualMagnitude, message = "Largest magnitudes are different."
+            )
         }
     }
 }
