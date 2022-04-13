@@ -1,12 +1,16 @@
 package advent18
 
-class SnailfishNumberExploder {
+class SnailfishNumberExploder(private val mainNumber: SnailfishNumber) {
     var level = 0
     var exploded = false
     var leftNumber = 0
     var rightNumber = 0
 
-    fun explode(number: SnailfishNumber) {
+    fun explode(): Boolean {
+        return explode(mainNumber)
+    }
+
+    private fun explode(number: SnailfishNumber): Boolean {
         level++
         if (level > 4 && number.value == null) {
             leftNumber = number.left?.value ?: 0
@@ -16,14 +20,15 @@ class SnailfishNumberExploder {
             number.value = 0
             number.left = null
             number.right = null
-            return
+            return true
         } else {
             explodeLeft(number)
-            if (exploded) return
+            if (exploded) return true
             explodeRight(number)
-            if (exploded) return
+            if (exploded) return true
         }
         level--
+        return false
     }
 
     private fun explodeLeft(number: SnailfishNumber) {

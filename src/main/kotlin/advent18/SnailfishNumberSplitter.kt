@@ -1,6 +1,6 @@
 package advent18
 
-class SnailfishNumberSplitter {
+object SnailfishNumberSplitter {
     fun split(number: SnailfishNumber): Boolean {
         number.value?.let { value ->
             if (value > 9) {

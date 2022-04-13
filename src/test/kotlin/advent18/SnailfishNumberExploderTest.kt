@@ -16,15 +16,35 @@ internal class SnailfishNumberExploderTest {
         "[[[1,[0,0]],[[[9,9],1],1]],1]" to "[[[1,[0,9]],[[0,10],1]],1]",
     )
 
+    private val numbersNotToExplode = listOf(
+        "[1,2]",
+        "[1,[2,[3,[4,4]]]]",
+        "[[[[4,4],3],2],1]",
+        "[[[[4,4],[4,4]],[[4,4],[4,4]]],[[[4,4],[4,4]],[[4,4],[4,4]]]]",
+    )
+
     @Test
-    fun explode() {
+    fun explode_numbersToExplode() {
         for ((beforeExplode, afterExplode) in numbersToExplode) {
             val snailfishNumber = SnailfishNumberReader(beforeExplode).read()
-            SnailfishNumberExploder().explode(snailfishNumber)
+            val result = SnailfishNumberExploder(snailfishNumber).explode()
+            assertEquals(expected = true, actual = result, message = "Number wasn't exploded.")
             assertEquals(
-                expected = afterExplode,
+                expected = afterExplode, actual = snailfishNumber.toString(), message = "Exploded numbers are different"
+            )
+        }
+    }
+
+    @Test
+    fun explode_numbersNotToExplode() {
+        for (notToExplode in numbersNotToExplode) {
+            val snailfishNumber = SnailfishNumberReader(notToExplode).read()
+            val result = SnailfishNumberExploder(snailfishNumber).explode()
+            assertEquals(expected = false, actual = result, message = "Number was exploded.")
+            assertEquals(
+                expected = notToExplode,
                 actual = snailfishNumber.toString(),
-                message = "Exploded numbers are different"
+                message = "Not exploded numbers are different"
             )
         }
     }
