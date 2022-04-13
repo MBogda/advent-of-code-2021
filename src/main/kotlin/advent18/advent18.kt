@@ -1,7 +1,6 @@
 package advent18
 
 fun main() {
-    val reader = SnailfishNumberReader()
 }
 
 data class SnailfishNumber(var left: SnailfishNumber?, var right: SnailfishNumber?, var value: Int?) {

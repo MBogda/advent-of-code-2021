@@ -5,8 +5,6 @@ import kotlin.test.assertEquals
 
 internal class SnailfishNumberExploderTest {
 
-    private val reader = SnailfishNumberReader()
-
     private val numbersToExplode = mapOf(
         "[[[[[9,8],1],2],3],4]" to "[[[[0,9],2],3],4]",
         "[[6,[5,[4,[3,2]]]],1]" to "[[6,[5,[7,0]]],3]",
@@ -21,7 +19,7 @@ internal class SnailfishNumberExploderTest {
     @Test
     fun explode() {
         for ((beforeExplode, afterExplode) in numbersToExplode) {
-            val snailfishNumber = reader.readNumber(beforeExplode)
+            val snailfishNumber = SnailfishNumberReader(beforeExplode).readNumber()
             SnailfishNumberExploder().explode(snailfishNumber)
             assertEquals(
                 expected = afterExplode,

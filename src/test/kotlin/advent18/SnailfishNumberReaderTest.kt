@@ -5,8 +5,6 @@ import kotlin.test.assertEquals
 
 internal class SnailfishNumberReaderTest {
 
-    private val reader = SnailfishNumberReader()
-
     private val stringsToNumbers = mapOf(
         "[1,2]" to SnailfishNumber(1, 2),
         "[[1,2],3]" to SnailfishNumber(SnailfishNumber(1, 2), 3),
@@ -63,7 +61,7 @@ internal class SnailfishNumberReaderTest {
         for ((numberString, snailfishNumber) in stringsToNumbers) {
             assertEquals(
                 expected = snailfishNumber,
-                actual = reader.readNumber(numberString),
+                actual = SnailfishNumberReader(numberString).readNumber(),
                 message = "Internal representations are different"
             )
         }
@@ -74,7 +72,7 @@ internal class SnailfishNumberReaderTest {
         for ((numberString, _) in stringsToNumbers) {
             assertEquals(
                 expected = numberString,
-                actual = reader.readNumber(numberString).toString(),
+                actual = SnailfishNumberReader(numberString).readNumber().toString(),
                 message = "String representations are different"
             )
         }

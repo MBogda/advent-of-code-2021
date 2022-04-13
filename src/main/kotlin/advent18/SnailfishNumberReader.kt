@@ -1,26 +1,30 @@
 package advent18
 
-class SnailfishNumberReader {
-    fun readNumber(number: String): SnailfishNumber {
-        return readNumber(number.iterator())
+class SnailfishNumberReader(number: String) {
+
+    private val numberIterator: CharIterator
+    private var currentChar: Char = '\n'
+
+    init {
+        numberIterator = number.iterator()
     }
 
-    private fun readNumber(numberIterator: CharIterator): SnailfishNumber {
+    fun readNumber(): SnailfishNumber {
         var left = SnailfishNumber(0)
         var right = SnailfishNumber(0)
         while (numberIterator.hasNext()) {
-            val ch = numberIterator.nextChar()
+            currentChar = numberIterator.nextChar()
             when {
-                ch == '[' -> {
-                    left = readNumber(numberIterator)
+                currentChar == '[' -> {
+                    left = readNumber()
                 }
-                ch.isDigit() -> {
-                    return SnailfishNumber(ch.digitToInt())
+                currentChar.isDigit() -> {
+                    return SnailfishNumber(currentChar.digitToInt())
                 }
-                ch == ',' -> {
-                    right = readNumber(numberIterator)
+                currentChar == ',' -> {
+                    right = readNumber()
                 }
-                ch == ']' -> {
+                currentChar == ']' -> {
                     return SnailfishNumber(left, right)
                 }
             }

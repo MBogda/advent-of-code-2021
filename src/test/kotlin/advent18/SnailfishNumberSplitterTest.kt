@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 
 internal class SnailfishNumberSplitterTest {
 
-    private val reader = SnailfishNumberReader()
     private val splitter = SnailfishNumberSplitter()
 
     private val numbersToSplit = mapOf(
@@ -18,7 +17,7 @@ internal class SnailfishNumberSplitterTest {
     @Test
     fun split() {
         for ((beforeSplit, afterSplit) in numbersToSplit) {
-            val snailfishNumber = reader.readNumber(beforeSplit)
+            val snailfishNumber = SnailfishNumberReader(beforeSplit).readNumber()
             splitter.split(snailfishNumber)
             assertEquals(
                 expected = afterSplit,
