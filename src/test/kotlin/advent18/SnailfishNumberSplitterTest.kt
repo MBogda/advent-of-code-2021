@@ -5,18 +5,20 @@ import kotlin.test.assertEquals
 
 internal class SnailfishNumberSplitterTest {
 
-    private val numbersToSplit = mapOf(
-        "[10,11]" to "[[5,5],11]",
-        "[3,11]" to "[3,[5,6]]",
-        "[101,0]" to "[[50,51],0]",
-        "[[[[9,10],11],12],13]" to "[[[[9,[5,5]],11],12],13]"
-    )
+    companion object {
+        private val numbersToSplit = mapOf(
+            "[10,11]" to "[[5,5],11]",
+            "[3,11]" to "[3,[5,6]]",
+            "[101,0]" to "[[50,51],0]",
+            "[[[[9,10],11],12],13]" to "[[[[9,[5,5]],11],12],13]"
+        )
 
-    private val numbersNotToSplit = listOf(
-        "[1,2]",
-        "[[3,4],[5,6]]",
-        "[[[7,8],[9,0]],1]",
-    )
+        private val numbersNotToSplit = listOf(
+            "[1,2]",
+            "[[3,4],[5,6]]",
+            "[[[7,8],[9,0]],1]",
+        )
+    }
 
     @Test
     fun split_numbersToSplit() {

@@ -5,10 +5,12 @@ import kotlin.test.assertEquals
 
 internal class SnailfishNumberAdderTest {
 
-    private val numbersToAdd = listOf(
-        Triple("[1,2]", "[3,4]", "[[1,2],[3,4]]"),
-        Triple("[[[[4,3],4],4],[7,[[8,4],9]]]", "[1,1]", "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"),
-    )
+    companion object {
+        private val numbersToAdd = listOf(
+            Triple("[1,2]", "[3,4]", "[[1,2],[3,4]]"),
+            Triple("[[[[4,3],4],4],[7,[[8,4],9]]]", "[1,1]", "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"),
+        )
+    }
 
     @Test
     fun add() {
