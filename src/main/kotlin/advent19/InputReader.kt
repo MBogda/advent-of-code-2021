@@ -21,7 +21,7 @@ object InputReader {
                 scannerNumber = matchResult.groupValues[1].toInt()
                 beacons = ArrayList()
             } else if (scannerNumber != null) {
-                val (x, y, z) = line.split(',').map { it -> it.toInt() }
+                val (x, y, z) = line.split(',').map { it.toInt() }
                 beacons.add(Beacon(x, y, z))
             }
         }

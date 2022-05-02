@@ -6,10 +6,10 @@ import kotlin.test.fail
 
 internal class InputReaderTest {
 
-    val inputFile = "inputReader"
-    val expectedResult = listOf(
+    private val inputFile = "inputReader"
+    private val expectedResult = listOf(
         Scanner(
-            0, listOf(
+            0, mutableListOf(
                 Beacon(1, 0, -1),
                 Beacon(100, 1000, 10000),
                 Beacon(-7, 100, -20),
@@ -17,11 +17,11 @@ internal class InputReaderTest {
             )
         ),
         Scanner(
-            20, listOf(
+            20, mutableListOf(
                 Beacon(-10, 0, 1)
             )
         ),
-        Scanner(5, emptyList()),
+        Scanner(5, mutableListOf()),
     )
 
     @Test
