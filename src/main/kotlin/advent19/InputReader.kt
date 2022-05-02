@@ -26,6 +26,10 @@ object InputReader {
             }
         }
 
+        if (scannerNumber != null) {
+            scanners.add(Scanner(scannerNumber, beacons))
+        }
+
         return scanners
     }
 }
