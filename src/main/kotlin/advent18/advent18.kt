@@ -3,7 +3,7 @@ package advent18
 import kotlin.math.max
 
 fun main() {
-    val inputText = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
+    val inputText: List<String> = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
         ?: throw AssertionError("Can't read input file.")
     val magnitude = findMagnitude(inputText)
     println("Part one: $magnitude")  // 3793
