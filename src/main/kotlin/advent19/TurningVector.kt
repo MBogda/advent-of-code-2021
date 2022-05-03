@@ -43,6 +43,15 @@ data class TurningVector private constructor(val x: Int, val y: Int, val z: Int)
                 else -> throw IllegalArgumentException("Can't convert to axis.")
             }
         }
+
+        fun applyTurningVector(beacon: Beacon, turningVector: TurningVector): Beacon {
+            val coordinatesList = listOf(beacon.x, beacon.y, beacon.z)
+            val (x, y, z) = turningVector
+            val resX = if (x > 0) coordinatesList[x - 1] else -coordinatesList[-x - 1]
+            val resY = if (y > 0) coordinatesList[y - 1] else -coordinatesList[-y - 1]
+            val resZ = if (z > 0) coordinatesList[z - 1] else -coordinatesList[-z - 1]
+            return Beacon(resX, resY, resZ)
+        }
     }
 
     override fun toString(): String {
