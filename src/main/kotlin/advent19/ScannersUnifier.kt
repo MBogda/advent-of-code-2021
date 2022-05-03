@@ -11,13 +11,16 @@ object ScannersUnifier {
     // todo? overlappingBeacons as a field or something
 
     /**
-     * Unifies all the [scanners] into [mainScanner].
+     * Unifies all the [scanners] into the copy of the first one. Returns new unified [Scanner].
      *
      * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
      * to make a unification possible.
      */
-    fun unifyScanners(overlappingBeacons: Int = 12, mainScanner: Scanner, vararg scanners: Scanner) {
+    fun unifyScanners(overlappingBeacons: Int = 12, vararg scanners: Scanner): Scanner {
+        val mainScanner = scanners[0].copy()
         val scannersSet = scanners.toMutableSet()
+        scannersSet.remove(mainScanner)
+
         outer@ while (scannersSet.isNotEmpty()) {
             val mutableIterator = scannersSet.iterator()
             while (mutableIterator.hasNext()) {
@@ -29,6 +32,8 @@ object ScannersUnifier {
             }
             break // no scanners were unified
         }
+
+        return mainScanner
     }
 
     /**

@@ -3,4 +3,12 @@ package advent19
 fun main() {
     val inputText: List<String> = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
         ?: throw AssertionError("Can't read input file.")
+    val beaconsNumber = findAllBeacons(inputText)
+    print("Part one: $beaconsNumber")
+}
+
+fun findAllBeacons(inputText: List<String>): Int {
+    val scanners = InputReader.readScannersData(inputText)
+    val unifiedScanners = ScannersUnifier.unifyScanners(12, *scanners.toTypedArray())
+    return unifiedScanners.beacons.size
 }
