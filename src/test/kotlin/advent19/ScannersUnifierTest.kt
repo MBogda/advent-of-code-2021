@@ -110,19 +110,19 @@ internal class ScannersUnifierTest {
 
     @Test
     fun unifyScanners_movedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(OVERLAPPING_BEACONS, mainScanner, movedScanner)
+        val actualScanner = ScannersUnifier(OVERLAPPING_BEACONS).unifyScanners(mainScanner, movedScanner)
         assertEquals(expected = expectedUnifiedWithMoved, actual = actualScanner, "Unified scanners are different.")
     }
 
     @Test
     fun unifyScanners_turnedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(OVERLAPPING_BEACONS, mainScanner, turnedScanner)
+        val actualScanner = ScannersUnifier(OVERLAPPING_BEACONS).unifyScanners(mainScanner, turnedScanner)
         assertEquals(expected = expectedUnifiedWithTurned, actual = actualScanner, "Unified scanners are different.")
     }
 
     @Test
     fun unifyScanners_movedAndTurnedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(OVERLAPPING_BEACONS, mainScanner, movedAndTurnedScanner)
+        val actualScanner = ScannersUnifier(OVERLAPPING_BEACONS).unifyScanners(mainScanner, movedAndTurnedScanner)
         assertEquals(
             expected = expectedUnifiedWithMovedAndTurned, actual = actualScanner, "Unified scanners are different."
         )
@@ -130,8 +130,8 @@ internal class ScannersUnifierTest {
 
     @Test
     fun unifyScanners_unifyAll() {
-        val actualScanner = ScannersUnifier.unifyScanners(
-            OVERLAPPING_BEACONS, mainScanner, movedScanner, turnedScanner, movedAndTurnedScanner
+        val actualScanner = ScannersUnifier(OVERLAPPING_BEACONS).unifyScanners(
+            mainScanner, movedScanner, turnedScanner, movedAndTurnedScanner
         )
         assertEquals(expected = expectedUnifiedAll, actual = actualScanner, "Unified scanners are different.")
     }

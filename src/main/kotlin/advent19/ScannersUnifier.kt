@@ -7,16 +7,17 @@ package advent19
  */
 private typealias Vector = Beacon
 
-object ScannersUnifier {
-    // todo? overlappingBeacons as a field or something
-
+/**
+ * Class to unify all scanners into one.
+ *
+ * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
+ * to make a unification possible.
+ */
+class ScannersUnifier(private val overlappingBeacons: Int = 12) {
     /**
      * Unifies all the [scanners] into the copy of the first one. Returns new unified [Scanner].
-     *
-     * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
-     * to make a unification possible.
      */
-    fun unifyScanners(overlappingBeacons: Int = 12, vararg scanners: Scanner): Scanner {
+    fun unifyScanners(vararg scanners: Scanner): Scanner {
         val mainScanner = scanners[0].copy()
         val scannersSet = scanners.toMutableSet()
         scannersSet.remove(mainScanner)
@@ -25,7 +26,7 @@ object ScannersUnifier {
             val mutableIterator = scannersSet.iterator()
             while (mutableIterator.hasNext()) {
                 val scanner = mutableIterator.next()
-                if (unifyTwoScanners(overlappingBeacons, mainScanner, scanner)) {
+                if (unifyTwoScanners(mainScanner, scanner)) {
                     mutableIterator.remove()
                     continue@outer
                 }
@@ -38,14 +39,10 @@ object ScannersUnifier {
 
     /**
      * Unifies [secondScanner] into [firstScanner].
-     *
-     * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
-     * to make a unification possible.
      */
-    private fun unifyTwoScanners(overlappingBeacons: Int, firstScanner: Scanner, secondScanner: Scanner): Boolean {
-        val (turningVector, movingVector) = findTransformationVectors(
-            overlappingBeacons, firstScanner, secondScanner
-        ) ?: return false   // can't unify this two scanners
+    private fun unifyTwoScanners(firstScanner: Scanner, secondScanner: Scanner): Boolean {
+        val (turningVector, movingVector) = findTransformationVectors(firstScanner, secondScanner)
+            ?: return false   // can't unify this two scanners
 
         val firstBeaconsSet = firstScanner.beacons.toSet()
         for (secondBeacon in secondScanner.beacons) {
@@ -61,13 +58,8 @@ object ScannersUnifier {
     /**
      * Returns a transformation vector - a vector to transform [secondScanner]'s [Beacon]s
      * into [firstScanner]'s [Beacon]s.
-     *
-     * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
-     * to make a unification possible.
      */
-    private fun findTransformationVectors(
-        overlappingBeacons: Int, firstScanner: Scanner, secondScanner: Scanner
-    ): Pair<TurningVector, Vector>? {
+    private fun findTransformationVectors(firstScanner: Scanner, secondScanner: Scanner): Pair<TurningVector, Vector>? {
         val firstMatrix = findBeaconsMatrix(firstScanner)
         val secondMatrix = findBeaconsMatrix(secondScanner)
 
