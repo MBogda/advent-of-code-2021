@@ -12,3 +12,7 @@ fun findAllBeacons(inputText: List<String>): Int {
     val unifiedScanners = ScannersUnifier.unifyScanners(12, *scanners.toTypedArray())
     return unifiedScanners.beacons.size
 }
+
+fun findLargestDistance(inputText: List<String>): Int {
+    return 0
+}
