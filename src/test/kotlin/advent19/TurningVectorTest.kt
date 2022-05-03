@@ -31,14 +31,14 @@ internal class TurningVectorTest {
     }
 
     @Test
-    fun applyTurningVector_trivialVector() {
-        val actualBeacon = TurningVector.applyTurningVector(beacon, TurningVector.fromString(trivialVector))
+    fun turn_trivialVector() {
+        val actualBeacon = TurningVector.fromString(trivialVector).turn(beacon)
         assertEquals(expected = beacon, actual = actualBeacon, "Actual beacon is different.")
     }
 
     @Test
-    fun applyTurningVector_secondVector() {
-        val actualBeacon = TurningVector.applyTurningVector(beacon, TurningVector.fromString(secondVector))
+    fun turn_secondVector() {
+        val actualBeacon = TurningVector.fromString(secondVector).turn(beacon)
         assertEquals(expected = secondTurnedBeacon, actual = actualBeacon, "Actual beacon is different.")
     }
 }

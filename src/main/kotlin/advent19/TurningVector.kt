@@ -1,5 +1,37 @@
 package advent19
 
+val TURNING_VECTORS = listOf(
+    TurningVector.fromString("(x,y,z)"),
+    TurningVector.fromString("(x,-y,-z)"),
+    TurningVector.fromString("(-x,y,-z)"),
+    TurningVector.fromString("(-x,-y,z)"),
+
+    TurningVector.fromString("(x,z,-y)"),
+    TurningVector.fromString("(x,-z,y)"),
+    TurningVector.fromString("(-x,z,y)"),
+    TurningVector.fromString("(-x,-z,-y)"),
+
+    TurningVector.fromString("(y,x,-z)"),
+    TurningVector.fromString("(y,-x,z)"),
+    TurningVector.fromString("(-y,x,z)"),
+    TurningVector.fromString("(-y,-x,-z)"),
+
+    TurningVector.fromString("(y,z,x)"),
+    TurningVector.fromString("(y,-z,-x)"),
+    TurningVector.fromString("(-y,z,-x)"),
+    TurningVector.fromString("(-y,-z,x)"),
+
+    TurningVector.fromString("(z,x,y)"),
+    TurningVector.fromString("(z,-x,-y)"),
+    TurningVector.fromString("(-z,x,-y)"),
+    TurningVector.fromString("(-z,-x,y)"),
+
+    TurningVector.fromString("(z,y,-x)"),
+    TurningVector.fromString("(z,-y,x)"),
+    TurningVector.fromString("(-z,y,x)"),
+    TurningVector.fromString("(-z,-y,-x)"),
+)
+
 /**
  * A vector containing information about axes turning.
  */
@@ -43,51 +75,18 @@ data class TurningVector private constructor(val x: Int, val y: Int, val z: Int)
                 else -> throw IllegalArgumentException("Can't convert to axis.")
             }
         }
-
-        fun applyTurningVector(beacon: Beacon, turningVector: TurningVector): Beacon {
-            val coordinatesList = listOf(beacon.x, beacon.y, beacon.z)
-            val (x, y, z) = turningVector
-            val resX = if (x > 0) coordinatesList[x - 1] else -coordinatesList[-x - 1]
-            val resY = if (y > 0) coordinatesList[y - 1] else -coordinatesList[-y - 1]
-            val resZ = if (z > 0) coordinatesList[z - 1] else -coordinatesList[-z - 1]
-            return Beacon(resX, resY, resZ)
-        }
     }
 
     override fun toString(): String {
         val (xx, yy, zz) = listOf(x, y, z).map { integerToAxis(it) }
         return "($xx,$yy,$zz)"
     }
+
+    fun turn(beacon: Beacon): Beacon {
+        val coordinatesList = listOf(beacon.x, beacon.y, beacon.z)
+        val resX = if (x > 0) coordinatesList[x - 1] else -coordinatesList[-x - 1]
+        val resY = if (y > 0) coordinatesList[y - 1] else -coordinatesList[-y - 1]
+        val resZ = if (z > 0) coordinatesList[z - 1] else -coordinatesList[-z - 1]
+        return Beacon(resX, resY, resZ)
+    }
 }
-
-val TURNING_VECTORS = listOf(
-    TurningVector.fromString("(x,y,z)"),
-    TurningVector.fromString("(x,-y,-z)"),
-    TurningVector.fromString("(-x,y,-z)"),
-    TurningVector.fromString("(-x,-y,z)"),
-
-    TurningVector.fromString("(x,z,-y)"),
-    TurningVector.fromString("(x,-z,y)"),
-    TurningVector.fromString("(-x,z,y)"),
-    TurningVector.fromString("(-x,-z,-y)"),
-
-    TurningVector.fromString("(y,x,-z)"),
-    TurningVector.fromString("(y,-x,z)"),
-    TurningVector.fromString("(-y,x,z)"),
-    TurningVector.fromString("(-y,-x,-z)"),
-
-    TurningVector.fromString("(y,z,x)"),
-    TurningVector.fromString("(y,-z,-x)"),
-    TurningVector.fromString("(-y,z,-x)"),
-    TurningVector.fromString("(-y,-z,x)"),
-
-    TurningVector.fromString("(z,x,y)"),
-    TurningVector.fromString("(z,-x,-y)"),
-    TurningVector.fromString("(-z,x,-y)"),
-    TurningVector.fromString("(-z,-x,y)"),
-
-    TurningVector.fromString("(z,y,-x)"),
-    TurningVector.fromString("(z,-y,x)"),
-    TurningVector.fromString("(-z,y,x)"),
-    TurningVector.fromString("(-z,-y,-x)"),
-)

@@ -46,7 +46,7 @@ class ScannersUnifier(private val overlappingBeacons: Int = 12) {
 
         val firstBeaconsSet = firstScanner.beacons.toSet()
         for (secondBeacon in secondScanner.beacons) {
-            val turnedSecondBeacon = TurningVector.applyTurningVector(secondBeacon, turningVector)
+            val turnedSecondBeacon = turningVector.turn(secondBeacon)
             val movedSecondBeacon = applyVector(turnedSecondBeacon, movingVector)
             if (movedSecondBeacon !in firstBeaconsSet) {
                 firstScanner.beacons.add(movedSecondBeacon)
@@ -68,14 +68,14 @@ class ScannersUnifier(private val overlappingBeacons: Int = 12) {
                 for (turningVector in TURNING_VECTORS) {
                     var matchedVectors = 0
                     for (secondVector in secondRow) {
-                        val turnedSecondVector = TurningVector.applyTurningVector(secondVector, turningVector)
+                        val turnedSecondVector = turningVector.turn(secondVector)
                         if (turnedSecondVector in firstRow) {
                             matchedVectors++
                         }
                     }
                     if (matchedVectors >= overlappingBeacons) {
                         val turnedSecondBeacon =
-                            TurningVector.applyTurningVector(secondScanner.beacons[secondRowIndex], turningVector)
+                            turningVector.turn(secondScanner.beacons[secondRowIndex])
                         val movingVector = findVector(turnedSecondBeacon, firstScanner.beacons[firstRowIndex])
                         return Pair(turningVector, movingVector)
                     }
