@@ -38,15 +38,16 @@ object ScannersUnifier {
      * to make a unification possible.
      */
     private fun unifyTwoScanners(overlappingBeacons: Int, firstScanner: Scanner, secondScanner: Scanner): Boolean {
-        val transformationVector = findTransformationVector(
+        val (turningVector, movingVector) = findTransformationVectors(
             overlappingBeacons, firstScanner, secondScanner
         ) ?: return false   // can't unify this two scanners
 
         val firstBeaconsSet = firstScanner.beacons.toSet()
         for (secondBeacon in secondScanner.beacons) {
-            val mappedBeacon = applyVector(secondBeacon, transformationVector)
-            if (mappedBeacon !in firstBeaconsSet) {
-                firstScanner.beacons.add(mappedBeacon)
+            val turnedSecondBeacon = TurningVector.applyTurningVector(secondBeacon, turningVector)
+            val movedSecondBeacon = applyVector(turnedSecondBeacon, movingVector)
+            if (movedSecondBeacon !in firstBeaconsSet) {
+                firstScanner.beacons.add(movedSecondBeacon)
             }
         }
         return true
@@ -59,22 +60,28 @@ object ScannersUnifier {
      * [overlappingBeacons] represents, how many overlapping beacons should two scanners contain
      * to make a unification possible.
      */
-    private fun findTransformationVector(
+    private fun findTransformationVectors(
         overlappingBeacons: Int, firstScanner: Scanner, secondScanner: Scanner
-    ): Vector? {
+    ): Pair<TurningVector, Vector>? {
         val firstMatrix = findBeaconsMatrix(firstScanner)
         val secondMatrix = findBeaconsMatrix(secondScanner)
 
         for ((firstRowIndex, firstRow) in firstMatrix.withIndex()) {
             for ((secondRowIndex, secondRow) in secondMatrix.withIndex()) {
-                var matchedVectors = 0
-                for (firstVector in firstRow) {
-                    if (firstVector in secondRow) {
-                        matchedVectors++
+                for (turningVector in TURNING_VECTORS) {
+                    var matchedVectors = 0
+                    for (secondVector in secondRow) {
+                        val turnedSecondVector = TurningVector.applyTurningVector(secondVector, turningVector)
+                        if (turnedSecondVector in firstRow) {
+                            matchedVectors++
+                        }
                     }
-                }
-                if (matchedVectors >= overlappingBeacons) {
-                    return findVector(secondScanner.beacons[secondRowIndex], firstScanner.beacons[firstRowIndex])
+                    if (matchedVectors >= overlappingBeacons) {
+                        val turnedSecondBeacon =
+                            TurningVector.applyTurningVector(secondScanner.beacons[secondRowIndex], turningVector)
+                        val movingVector = findVector(turnedSecondBeacon, firstScanner.beacons[firstRowIndex])
+                        return Pair(turningVector, movingVector)
+                    }
                 }
             }
         }
