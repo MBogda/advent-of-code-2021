@@ -4,7 +4,7 @@ fun main() {
     val inputText: List<String> = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
         ?: throw AssertionError("Can't read input file.")
     val beaconsNumber = findAllBeacons(inputText)
-    print("Part one: $beaconsNumber")
+    print("Part one: $beaconsNumber")   // 353
 }
 
 fun findAllBeacons(inputText: List<String>): Int {
