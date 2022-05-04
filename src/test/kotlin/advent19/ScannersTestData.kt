@@ -151,4 +151,11 @@ internal object ScannersTestData {
     )
 
     val expectedMaxDistanceAll = 60
+
+    val expectedScannerCoordinatesAll = mutableListOf(
+        Vector(0, 0, 0),
+        Vector(-10, -10, -10),
+        Vector(0, 0, 0),
+        Vector(10, 10, 10),
+    )
 }

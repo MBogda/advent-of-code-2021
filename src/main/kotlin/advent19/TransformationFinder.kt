@@ -35,7 +35,7 @@ object TransformationFinder {
      * Returns a matrix, where each row corresponds to each [scanner]'s [Beacon]
      * and contains [Vector]s of this [scanner]'s [Beacon]s  relative to that [Beacon].
      */
-    fun findBeaconsMatrix(scanner: Scanner): List<Set<Vector>> {
+    internal fun findBeaconsMatrix(scanner: Scanner): List<Set<Vector>> {
         val matrix = ArrayList<Set<Vector>>()
         for (beacon1 in scanner.beacons) {
             val row = HashSet<Vector>()

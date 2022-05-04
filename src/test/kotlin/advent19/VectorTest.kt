@@ -46,4 +46,16 @@ internal class VectorTest {
         val actualBeacon = secondVector.move(beacon1)
         assertEquals(expected = secondVectorBeacon1, actual = actualBeacon, "Actual beacon is different.")
     }
+
+    @Test
+    fun manhattanDistance_trivialVector() {
+        val actualDistance = trivialVector.manhattanDistance()
+        assertEquals(expected = 0, actual = actualDistance, "Manhattan distance is different.")
+    }
+
+    @Test
+    fun manhattanDistance_secondVector() {
+        val actualDistance = secondVector.manhattanDistance()
+        assertEquals(expected = 8, actual = actualDistance, "Manhattan distance is different.")
+    }
 }
