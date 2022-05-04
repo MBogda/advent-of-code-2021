@@ -8,6 +8,10 @@ object ScannersUnifier {
      * Unifies all the [scanners] into the copy of the first one. Returns new unified [Scanner].
      */
     fun unifyScanners(vararg scanners: Scanner): Scanner {
+        if (scanners.isEmpty()) {
+            throw IllegalArgumentException("No scanners were provided.")
+        }
+
         val mainScanner = scanners[0].copy()
         val scannersSet = scanners.toMutableSet()
         scannersSet.remove(mainScanner)

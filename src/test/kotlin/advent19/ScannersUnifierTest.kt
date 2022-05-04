@@ -12,10 +12,7 @@ import advent19.ScannersTestData.turnedScanner
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 internal class ScannersUnifierTest {
 
@@ -28,6 +25,19 @@ internal class ScannersUnifierTest {
     @AfterTest
     fun afterTest() {
         unmockkAll()
+    }
+
+    @Test
+    fun unifyScanners_noScanners() {
+        assertFailsWith<IllegalArgumentException>("There are no scanners, but they were unified.") {
+            ScannersUnifier.unifyScanners()
+        }
+    }
+
+    @Test
+    fun unifyScanners_mainScannerOnly() {
+        val actualScanner = ScannersUnifier.unifyScanners(mainScanner)
+        assertEquals(expected = mainScanner, actual = actualScanner, "Unified scanners are different.")
     }
 
     @Test
