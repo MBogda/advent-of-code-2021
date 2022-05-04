@@ -82,6 +82,9 @@ data class TurningVector private constructor(val x: Int, val y: Int, val z: Int)
         return "($xx,$yy,$zz)"
     }
 
+    /**
+     * Return a new [Beacon], which is the [beacon] turned by this [TurningVector].
+     */
     fun turn(beacon: Beacon): Beacon {
         val coordinatesList = listOf(beacon.x, beacon.y, beacon.z)
         val resX = if (x > 0) coordinatesList[x - 1] else -coordinatesList[-x - 1]
