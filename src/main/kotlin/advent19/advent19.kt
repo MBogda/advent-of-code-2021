@@ -13,7 +13,7 @@ fun main() {
 
 fun findAllBeacons(inputText: List<String>): Int {
     val scanners = InputReader.readScannersData(inputText)
-    val (unifiedScanners, _) = ScannersUnifier.unifyScanners(*scanners.toTypedArray())
+    val unifiedScanners = ScannersUnifier.unifyScanners(*scanners.toTypedArray())
     return unifiedScanners.beacons.size
 }
 

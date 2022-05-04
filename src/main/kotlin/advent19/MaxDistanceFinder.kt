@@ -7,7 +7,7 @@ object MaxDistanceFinder {
      * Finds the largest Manhattan distance between any two scanners.
      */
     fun findScannersMaxDistance(vararg scanners: Scanner): Int {
-        val (_, scannersVectors) = ScannersUnifier.unifyScanners(*scanners)
+        val scannersVectors = ScannersUnifier.unifyScannersAndGetCoordinates(*scanners)
         return findMaxDistance(scannersVectors)
     }
 

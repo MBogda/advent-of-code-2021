@@ -5,10 +5,26 @@ package advent19
  */
 object ScannersUnifier {
     /**
-     * Unifies all the [scanners] into the copy of the first one.
-     * Returns new unified [Scanner] and all [scanners]' coordinates.
+     * Unifies all the [scanners] into the copy of the first one. Returns new unified [Scanner].
      */
-    fun unifyScanners(vararg scanners: Scanner): Pair<Scanner, List<Vector>> {
+    fun unifyScanners(vararg scanners: Scanner): Scanner {
+        val (scanner, _) = unifyScannersInternal(*scanners)
+        return scanner
+    }
+
+    /**
+     * Unifies all the [scanners] into the copy of the first one. Returns all the [scanners]' coordinates.
+     */
+    fun unifyScannersAndGetCoordinates(vararg scanners: Scanner): List<Vector> {
+        val (_, scannersCoordinates) = unifyScannersInternal(*scanners)
+        return scannersCoordinates
+    }
+
+    /**
+     * Unifies all the [scanners] into the copy of the first one.
+     * Returns new unified [Scanner] and all the [scanners]' coordinates.
+     */
+    private fun unifyScannersInternal(vararg scanners: Scanner): Pair<Scanner, List<Vector>> {
         if (scanners.isEmpty()) {
             throw IllegalArgumentException("No scanners were provided.")
         }
