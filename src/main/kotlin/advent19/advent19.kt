@@ -5,10 +5,10 @@ fun main() {
         ?: throw AssertionError("Can't read input file.")
 
     val beaconsNumber = findAllBeacons(inputText)
-    print("Part one: $beaconsNumber")   // 353
+    println("Part one: $beaconsNumber")   // 353
 
     val maxDistance = findLargestDistance(inputText)
-    print("Part two: $maxDistance")
+    println("Part two: $maxDistance")
 }
 
 fun findAllBeacons(inputText: List<String>): Int {
