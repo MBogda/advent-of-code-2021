@@ -14,7 +14,7 @@ import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import kotlin.test.*
 
-internal class ScannersDistanceFinderTest {
+internal class MaxDistanceFinderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -30,31 +30,31 @@ internal class ScannersDistanceFinderTest {
     @Test
     fun findScannersMaxDistance_noScanners() {
         assertFailsWith<IllegalArgumentException>("Max distance was found while no scanners.") {
-            ScannersDistanceFinder.findScannersMaxDistance()
+            MaxDistanceFinder.findScannersMaxDistance()
         }
     }
 
     @Test
     fun findScannersMaxDistance_mainScannerOnly() {
-        val actualDistance = ScannersDistanceFinder.findScannersMaxDistance(mainScanner)
+        val actualDistance = MaxDistanceFinder.findScannersMaxDistance(mainScanner)
         assertEquals(expected = 0, actual = actualDistance, "Max distance is different.")
     }
 
     @Test
     fun findScannersMaxDistance_movedScanner() {
-        val actualDistance = ScannersDistanceFinder.findScannersMaxDistance(mainScanner, movedScanner)
+        val actualDistance = MaxDistanceFinder.findScannersMaxDistance(mainScanner, movedScanner)
         assertEquals(expected = expectedMaxDistanceMoved, actual = actualDistance, "Max distance is different.")
     }
 
     @Test
     fun findScannersMaxDistance_turnedScanner() {
-        val actualDistance = ScannersDistanceFinder.findScannersMaxDistance(mainScanner, turnedScanner)
+        val actualDistance = MaxDistanceFinder.findScannersMaxDistance(mainScanner, turnedScanner)
         assertEquals(expected = expectedMaxDistanceTurned, actual = actualDistance, "Max distance is different.")
     }
 
     @Test
     fun findScannersMaxDistance_movedAndTurnedScanner() {
-        val actualDistance = ScannersDistanceFinder.findScannersMaxDistance(mainScanner, movedAndTurnedScanner)
+        val actualDistance = MaxDistanceFinder.findScannersMaxDistance(mainScanner, movedAndTurnedScanner)
         assertEquals(
             expected = expectedMaxDistanceMovedAndTurned, actual = actualDistance, "Max distance is different."
         )
@@ -62,39 +62,15 @@ internal class ScannersDistanceFinderTest {
 
     @Test
     fun findScannersMaxDistance_allScanners() {
-        val actualDistance = ScannersDistanceFinder.findScannersMaxDistance(
+        val actualDistance = MaxDistanceFinder.findScannersMaxDistance(
             mainScanner, movedScanner, turnedScanner, movedAndTurnedScanner
         )
         assertEquals(expected = expectedMaxDistanceAll, actual = actualDistance, "Max distance is different.")
     }
 
     @Test
-    fun findScannersCoordinates_noScanners() {
-        assertFailsWith<IllegalArgumentException>("Coordinates were found while no scanners.") {
-            ScannersDistanceFinder.findScannersCoordinates()
-        }
-    }
-
-    @Test
-    fun findScannersCoordinates_mainScanner() {
-        val actualCoordinates = ScannersDistanceFinder.findScannersCoordinates(mainScanner)
-        val expectedCoordinates = mutableListOf(Vector(0, 0, 0))
-        assertEquals(expected = expectedCoordinates, actual = actualCoordinates, "Scanners' coordinates are different.")
-    }
-
-    @Test
-    fun findScannersCoordinates_allScanners() {
-        val actualCoordinates = ScannersDistanceFinder.findScannersCoordinates(
-            mainScanner, movedScanner, turnedScanner, movedAndTurnedScanner
-        )
-        assertEquals(
-            expected = expectedScannerCoordinatesAll, actual = actualCoordinates, "Scanners' coordinates are different."
-        )
-    }
-
-    @Test
     fun findMaxDistance_noVectors() {
-        val actualDistance = ScannersDistanceFinder.findMaxDistance(emptyList())
+        val actualDistance = MaxDistanceFinder.findMaxDistance(emptyList())
         val expectedDistance = 0
         assertEquals(expected = expectedDistance, actual = actualDistance, "Max distance is different.")
     }
@@ -102,14 +78,14 @@ internal class ScannersDistanceFinderTest {
     @Test
     fun findMaxDistance_oneVector() {
         val givenVectors = mutableListOf(Vector(1, 3, 10))
-        val actualDistance = ScannersDistanceFinder.findMaxDistance(givenVectors)
+        val actualDistance = MaxDistanceFinder.findMaxDistance(givenVectors)
         val expectedDistance = 0
         assertEquals(expected = expectedDistance, actual = actualDistance, "Max distance is different.")
     }
 
     @Test
     fun findMaxDistance_fourVectors() {
-        val actualDistance = ScannersDistanceFinder.findMaxDistance(expectedScannerCoordinatesAll)
+        val actualDistance = MaxDistanceFinder.findMaxDistance(expectedScannerCoordinatesAll)
         assertEquals(expected = expectedMaxDistanceAll, actual = actualDistance, "Max distance is different.")
     }
 }

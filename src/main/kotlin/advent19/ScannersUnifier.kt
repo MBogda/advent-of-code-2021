@@ -5,9 +5,10 @@ package advent19
  */
 object ScannersUnifier {
     /**
-     * Unifies all the [scanners] into the copy of the first one. Returns new unified [Scanner].
+     * Unifies all the [scanners] into the copy of the first one.
+     * Returns new unified [Scanner] and all [scanners]' coordinates.
      */
-    fun unifyScanners(vararg scanners: Scanner): Scanner {
+    fun unifyScanners(vararg scanners: Scanner): Pair<Scanner, List<Vector>> {
         if (scanners.isEmpty()) {
             throw IllegalArgumentException("No scanners were provided.")
         }
@@ -15,12 +16,15 @@ object ScannersUnifier {
         val mainScanner = scanners[0].copy()
         val scannersSet = scanners.toMutableSet()
         scannersSet.remove(mainScanner)
+        val scannersVectors = arrayListOf(Vector(0, 0, 0))
 
         outer@ while (scannersSet.isNotEmpty()) {
             val mutableIterator = scannersSet.iterator()
             while (mutableIterator.hasNext()) {
                 val scanner = mutableIterator.next()
-                if (unifyTwoScanners(mainScanner, scanner)) {
+                val scannersCoordinates = unifyTwoScanners(mainScanner, scanner)
+                if (scannersCoordinates != null) {
+                    scannersVectors.add(scannersCoordinates)
                     mutableIterator.remove()
                     continue@outer
                 }
@@ -28,15 +32,16 @@ object ScannersUnifier {
             break // no scanners were unified
         }
 
-        return mainScanner
+        return Pair(mainScanner, scannersVectors)
     }
 
     /**
      * Unifies [secondScanner] into [firstScanner].
+     * Returns vector with [secondScanner]'s coordinates relative to the [firstScanner].
      */
-    private fun unifyTwoScanners(firstScanner: Scanner, secondScanner: Scanner): Boolean {
+    private fun unifyTwoScanners(firstScanner: Scanner, secondScanner: Scanner): Vector? {
         val (turningVector, movingVector) = TransformationFinder.findTransformationVectors(firstScanner, secondScanner)
-            ?: return false   // can't unify this two scanners
+            ?: return null  // can't unify this two scanners
 
         val firstBeaconsSet = firstScanner.beacons.toSet()
         for (secondBeacon in secondScanner.beacons) {
@@ -46,6 +51,6 @@ object ScannersUnifier {
                 firstScanner.beacons.add(movedSecondBeacon)
             }
         }
-        return true
+        return movingVector
     }
 }

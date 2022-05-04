@@ -1,6 +1,7 @@
 package advent19
 
 import advent19.ScannersTestData.OVERLAPPING_BEACONS
+import advent19.ScannersTestData.expectedScannerCoordinatesAll
 import advent19.ScannersTestData.expectedUnifiedAll
 import advent19.ScannersTestData.expectedUnifiedWithMoved
 import advent19.ScannersTestData.expectedUnifiedWithMovedAndTurned
@@ -36,35 +37,50 @@ internal class ScannersUnifierTest {
 
     @Test
     fun unifyScanners_mainScannerOnly() {
-        val actualScanner = ScannersUnifier.unifyScanners(mainScanner)
+        val (actualScanner, actualCoordinates) = ScannersUnifier.unifyScanners(mainScanner)
         assertEquals(expected = mainScanner, actual = actualScanner, "Unified scanners are different.")
+
+        val expectedCoordinates = listOf(Vector(0, 0, 0))
+        assertEquals(expected = expectedCoordinates, actual = actualCoordinates, "Scanners' coordinates are different.")
     }
 
     @Test
     fun unifyScanners_movedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(mainScanner, movedScanner)
+        val (actualScanner, actualCoordinates) = ScannersUnifier.unifyScanners(mainScanner, movedScanner)
         assertEquals(expected = expectedUnifiedWithMoved, actual = actualScanner, "Unified scanners are different.")
+
+        val expectedCoordinates = listOf(expectedScannerCoordinatesAll[0], expectedScannerCoordinatesAll[1])
+        assertEquals(expected = expectedCoordinates, actual = actualCoordinates, "Scanners' coordinates are different.")
     }
 
     @Test
     fun unifyScanners_turnedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(mainScanner, turnedScanner)
+        val (actualScanner, actualCoordinates) = ScannersUnifier.unifyScanners(mainScanner, turnedScanner)
         assertEquals(expected = expectedUnifiedWithTurned, actual = actualScanner, "Unified scanners are different.")
+
+        val expectedCoordinates = listOf(expectedScannerCoordinatesAll[0], expectedScannerCoordinatesAll[2])
+        assertEquals(expected = expectedCoordinates, actual = actualCoordinates, "Scanners' coordinates are different.")
     }
 
     @Test
     fun unifyScanners_movedAndTurnedScanner() {
-        val actualScanner = ScannersUnifier.unifyScanners(mainScanner, movedAndTurnedScanner)
+        val (actualScanner, actualCoordinates) = ScannersUnifier.unifyScanners(mainScanner, movedAndTurnedScanner)
         assertEquals(
             expected = expectedUnifiedWithMovedAndTurned, actual = actualScanner, "Unified scanners are different."
         )
+
+        val expectedCoordinates = listOf(expectedScannerCoordinatesAll[0], expectedScannerCoordinatesAll[3])
+        assertEquals(expected = expectedCoordinates, actual = actualCoordinates, "Scanners' coordinates are different.")
     }
 
     @Test
     fun unifyScanners_unifyAll() {
-        val actualScanner = ScannersUnifier.unifyScanners(
+        val (actualScanner, actualCoordinates) = ScannersUnifier.unifyScanners(
             mainScanner, movedScanner, turnedScanner, movedAndTurnedScanner
         )
         assertEquals(expected = expectedUnifiedAll, actual = actualScanner, "Unified scanners are different.")
+        assertEquals(
+            expected = expectedScannerCoordinatesAll, actual = actualCoordinates, "Scanners' coordinates are different."
+        )
     }
 }
