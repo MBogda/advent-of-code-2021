@@ -3,8 +3,12 @@ package advent19
 fun main() {
     val inputText: List<String> = object {}.javaClass.getResourceAsStream("input")?.bufferedReader()?.readLines()
         ?: throw AssertionError("Can't read input file.")
+
     val beaconsNumber = findAllBeacons(inputText)
     print("Part one: $beaconsNumber")   // 353
+
+    val maxDistance = findLargestDistance(inputText)
+    print("Part two: $maxDistance")
 }
 
 fun findAllBeacons(inputText: List<String>): Int {
@@ -14,5 +18,6 @@ fun findAllBeacons(inputText: List<String>): Int {
 }
 
 fun findLargestDistance(inputText: List<String>): Int {
-    return 3621
+    val scanners = InputReader.readScannersData(inputText)
+    return ScannersDistanceFinder.findScannersMaxDistance(*scanners.toTypedArray())
 }
