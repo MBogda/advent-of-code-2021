@@ -69,6 +69,8 @@ internal object ScannersTestData {
         )
     )
 
+    val expectedMaxDistanceMoved = 30
+
     // this scanner is turned as (-z, -y, -x), but it's in the same point as the main one
     val turnedScanner = Scanner(
         2, mutableListOf(
@@ -95,6 +97,8 @@ internal object ScannersTestData {
             Beacon(-100, -100, -100),
         )
     )
+
+    val expectedMaxDistanceTurned = 0
 
     // this scanner is moved by (-10, -10, -10) and then turned as (-y, z, -x)
     val movedAndTurnedScanner = Scanner(
@@ -131,6 +135,8 @@ internal object ScannersTestData {
         )
     )
 
+    val expectedMaxDistanceMovedAndTurned = 30
+
     val expectedUnifiedAll = Scanner(
         0, mutableListOf(
             Beacon(0, 0, 0),
@@ -143,4 +149,6 @@ internal object ScannersTestData {
             Beacon(-90, -90, 110),
         )
     )
+
+    val expectedMaxDistanceAll = 60
 }
